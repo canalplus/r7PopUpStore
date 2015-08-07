@@ -31,6 +31,8 @@ There are two servers that you will lauch.
 * a express server
 * a dns server
 
+Before launching the servers, please check that ports 80 and 53 are available and do not listen to another service.
+
 ####Express server
 This task can be launched from npm:
 
