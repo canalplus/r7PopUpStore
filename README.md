@@ -17,7 +17,7 @@ git clone https://github.com/canalplus/r7PopUpStore.git
 cd r7PopUpStore
 ```
 
-And you received or downloaded a folder, which is called "public". You have to place it in the following path :
+And you received or downloaded a folder, which is called "public". This folder contains all the media and configurations necessary for the decoder. You have to place it in the following path :
 
 ```text
 /var/www/html/
@@ -26,7 +26,7 @@ And you received or downloaded a folder, which is called "public". You have to p
 Please respect this path strictly; if the folders don't exist, you can create them.
 
 ###Tasks
-There are two servers that you will lauch.
+There are two servers that you have to launch.
 
 * a express server
 * a dns server
@@ -41,11 +41,11 @@ npm start
 ```
 
 ####Dns server
-This task can be lauched with this command:
+This task can be launched with this command:
 
 ```text
 node dns.js
 ```
 
-Warning : To lauch this tasks, you have to be a super user.
+Warning : To launch this tasks, you have to be a super user.
 If you are on a Linux environment, you can use "sudo".
