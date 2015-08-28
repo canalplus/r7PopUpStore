@@ -1,0 +1,5 @@
+{
+	"staticRoot": "/var/www/html/public/",
+	"apiRoot": "/GNCPF/vod/cplusod/ctx/json/g5r7t/",
+	"portNumber": 80
+}
