@@ -61,5 +61,5 @@ app.use(function (req, res, next) {
 
 
 /* Starting server ... */
-app.listen(config.portNumber);
-console.log("Listening on", config.portNumber, "...")
+app.listen(80);
+console.log("Listening on :80...")
