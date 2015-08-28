@@ -1,51 +1,69 @@
 # r7PopUpStore
-Local express server configuration for Canal+ PopUp Stores
+Local NodeJS Express server configuration for Canal+ PopUp Stores.
 
-###Getting started
-You will need to install node together with npm in order to use the development tools.
+# TODO
+* What about the DNS stuff ?
 
-```text
-http://nodejs.org/download/ # windows
-brew install node # macos with brew
-apt-get install nodejs # debian / ubuntu
-```
+## About
 
-Then you need to clone the git repository, and install the dependencies using npm.
+No documentation yet.
 
-```text
+## Getting Started
+
+Clone this repository and install the dependencies with npm :
+
+```bash
 git clone https://github.com/canalplus/r7PopUpStore.git
 cd r7PopUpStore
+npm install
 ```
 
-And you received or downloaded a folder, which is called "public". This folder contains all the media and configurations necessary for the decoder. You have to place it in the following path :
+### Configuration
 
-```text
-/var/www/html/
+Make sure all configuration settings are ok in `config.json` :
+
+```json
+{
+    "staticRoot": "/var/www/html/public/",
+    "apiRoot": "/GNCPF/vod/cplusod/ctx/json/g5r7t/",
+}
 ```
 
-Please respect this path strictly; if the folders don't exist, you can create them.
+### Routes
 
-###Tasks
-There are two servers that you have to launch.
+Also, make sure a `routes.json` file with the following format is present next to `index.js` :
 
-* a express server
-* a dns server
+```json
+{
+    "csatod/xtc/ws/content/csatald_chaines_musique":"csatald_content/csatald_chaines_musique.json",
+    "{{vod/endpoint}}":"{{/json/file.json}}"
+}
+```
 
-Before launching the servers, please check that ports 80 and 53 are available and do not listen to another service.
+### Video Assets
 
-####Express server
-This task can be launched from npm:
+You will need to place all the video assets in the `config.staticRoot` folder.
 
-```text
+### Usage
+
+Then, start Express server with NPM :
+
+```bash
 npm start
 ```
 
-####Dns server
-This task can be launched with this command:
+or with native NodeJS CLI :
 
-```text
-node dns.js
+```bash
+nodejs index.js
 ```
 
-Warning : To launch this tasks, you have to be a super user.
-If you are on a Linux environment, you can use "sudo".
+NOTE : you might have to be a superuser to listen to ports 80.
+
+## Tests
+
+No tests yet.
+
+## Credits
+
+2015 - Canal+
