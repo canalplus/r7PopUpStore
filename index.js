@@ -1,13 +1,12 @@
 var express = require('express');
 var morgan = require('morgan');
 
-
 var app = express();
 var compteur = 0;
 
-
 app.use(morgan('dev'));
 app.use(function (req, res, next) {
+console.log("REQUEST HEADERS :" + JSON.stringify(req.headers));
     // Website you wish to allow to connect
     res.setHeader('Access-Control-Allow-Origin', '*');
     // Request methods you wish to allow
@@ -26,8 +25,6 @@ app.use(function (req, res, next) {
         next();
     }
 });
-
-
 
 /*---------------------*/
 /* CANAL+ A LA DEMANDE */
@@ -105,6 +102,12 @@ app.post('/GNCPF/vod/cplusod/ctx/json/g5r7t/cplusod/xtc/ws/content/cplusald_them
 app.post('/GNCPF/vod/cplusod/ctx/json/g5r7t/cplusod/xtc/ws/content/cplusald_them_adulte', function(req, res){
     res.setHeader('Content-Type', 'application/json');
     res.status(200).sendFile('/var/www/html/public/c+ald_content/atg_adulte.json');
+});
+
+//CONTENT
+app.post('/GNCPF/vod/cplusod/ctx/json/g5r7t/cplusod/xtc/ws/content/:prodId', function(req, res){
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).sendFile('/GNCPF/vod/cplusod/ctx/json/g5r7t/cplusod/xtc/ws/content/'+req.params.prodId+'.json');
 });
 
 
@@ -707,4 +710,5 @@ app.post('/GNCPF/vod/cplusod/ctx/json/g5r7t/csatod/xtc/ws/content/csatald_chaine
 
 
 app.use(express.static('/var/www/html/public'));
+
 app.listen(80);

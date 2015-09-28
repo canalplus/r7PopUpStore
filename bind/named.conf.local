@@ -1,0 +1,59 @@
+//
+// Do any local configuration here
+//
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+//include "/etc/bind/zones.rfc1918";
+
+// Forward zone
+zone "epg.canal-plus.com" {
+        type master;
+        file "/etc/bind/db.epg_canal-plus";
+};
+
+zone "hls-live-m4-l3.canal-plus.com" {
+        type master;
+        file "/etc/bind/db.live_accueil";
+};
+
+zone "pool.ntp.org" {
+        type master;
+        file "/etc/bind/db.ntp";
+};
+
+zone "image.canal-plus.com" {
+        type master;
+        file "/etc/bind/db.images_chaines";
+};
+
+zone "stb-static.canal-bis.com" {
+        type master;
+        file "/etc/bind/db.static_bis";
+};
+
+zone "stb-static.canal-plus.com" {
+        type master;
+        file "/etc/bind/db.static_plus";
+};
+
+zone "bo.canallabs.fr" {
+        type master;
+        file "/etc/bind/db.bo_canallabs";
+};
+
+zone "chaines.canal-plus.com" {
+        type master;
+        file "/etc/bind/db.chaines";
+};
+
+zone "secure-stb.canal-plus.com" {
+        type master;
+        file "/etc/bind/db.secure_stb";
+};
+
+zone "secure-g5-snl.canal-plus.com" {
+        type master;
+        file "/etc/bind/db.secure_snl";
+};
+

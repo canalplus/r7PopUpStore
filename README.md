@@ -37,15 +37,17 @@ Before launching the servers, please check that ports 80 and 53 are available an
 This task can be launched from npm:
 
 ```text
-npm start
+sudo npm start
 ```
 
 ####Dns server
 This task can be launched with this command:
 
 ```text
-node dns.js
+sudo service bind9 start
 ```
+
+All DNS configuration shall be copied from local bind directory to system /etc/bind.
 
 Warning : To launch this tasks, you have to be a super user.
 If you are on a Linux environment, you can use "sudo".
