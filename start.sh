@@ -12,4 +12,4 @@ cd /home/photobox/r7PopUpStore
 # Update app
 sh update.sh
 
-sh install.sh
+sudo sh install.sh
