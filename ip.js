@@ -1,8 +1,8 @@
 'use strict';
 
 // import deps
-var os = require('os');
-var fs = require('fs');
+var os    = require('os');
+var fs    = require('fs');
 var swig  = require('swig');
 
 // get IP addr
@@ -14,20 +14,18 @@ var ipNuc = require('underscore')
   .value()
   .address;
 
-// render template
-var fileNTPConf = swig.renderFile('ntp.conf.tpl', {ip: ipNuc});
-
-// write file to fs
-fs.writeFile("test", fileNTPConf, function(err) {
-  if(err) {return console.log(err);}
-  console.log("/etc/ntp.conf saved with ip addr = "+ ipNuc);
+fs.readdir('bind', function(err, items) {
+    for (var i=0; i<items.length; i++) {
+        if( 'named.conf.local' !== items[i] ) {
+            console.log('[ip.js] installing ' + items[i]);
+            // render template
+            var bindConf = swig.renderFile('./bind/'+items[i], {ip: ipNuc});
+            // write file to fs
+            fs.writeFile("/etc/bind/"+items[i], bindConf, function(err) {
+              if(err) {return console.log(err);}
+              console.log('[ip.js] bind db installed');
+            });
+        }
+    }
 });
 
-// render template
-var fileNTPConf = swig.renderFile('app.js', {ip: ipNuc});
-
-// write file to fs
-fs.writeFile("/home/wilfried/Documents/app.js", fileNTPConf, function(err) {
-  if(err) {return console.log(err);}
-  console.log("app.js saved with ip addr = "+ ipNuc);
-});
