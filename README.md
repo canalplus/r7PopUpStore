@@ -7,7 +7,7 @@ Dépendance: git
 * Clone the repository
 
 ```text
-$ https://github.com/canalplus/r7PopUpStore.git
+$ git clone https://github.com/canalplus/r7PopUpStore.git
 ```
 * Get the static archived public directory. This archive contains all the media and configurations necessary for the decoder. You have to place the 'public' directory under the following path:
 
