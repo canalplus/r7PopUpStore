@@ -1,12 +1,24 @@
+'use scrict';
+
 var express = require('express');
 var morgan = require('morgan');
+var fs = require('fs');
 
 var app = express();
 var compteur = 0;
+var port = 80;
+var staticDir = '/var/www/html/public';
+var std169    = '/mycanal/img/STD169/JPG/200X112/';
+var gen169    = '/mycanal/img/GEN169/JPG/200X112/';
+var mea       = '/mycanal/img/MEASOIR/JPG/474X209/';
+
+var stdList = fs.readdirSync(staticDir+std169);
+var genList = fs.readdirSync(staticDir+gen169);
+var meaList = fs.readdirSync(staticDir+mea);
 
 app.use(morgan('dev'));
 app.use(function (req, res, next) {
-console.log("REQUEST HEADERS :" + JSON.stringify(req.headers));
+//console.log("REQUEST HEADERS :" + JSON.stringify(req.headers));
     // Website you wish to allow to connect
     res.setHeader('Access-Control-Allow-Origin', '*');
     // Request methods you wish to allow
@@ -27,9 +39,29 @@ console.log("REQUEST HEADERS :" + JSON.stringify(req.headers));
 });
 
 /*---------------------*/
+/* MYCANAL PICS        */
+/*---------------------*/
+app.get(std169+':picture', function(req, res){
+    var rndIndex = Math.floor(Math.random() * stdList.length);
+    res.setHeader('Content-Type', 'image/jpeg');
+    res.status(200).sendFile(staticDir+std169+stdList[rndIndex]);
+});
+
+app.get(gen169+':picture', function(req, res){
+    var rndIndex = Math.floor(Math.random() * genList.length);
+    res.setHeader('Content-Type', 'application/image/jpeg');
+    res.status(200).sendFile(staticDir+gen169+genList[rndIndex]);
+});
+
+app.get(mea+':picture', function(req, res){
+    var rndIndex = Math.floor(Math.random() * meaList.length);
+    res.setHeader('Content-Type', 'application/image/jpeg');
+    res.status(200).sendFile(staticDir+mea+meaList[rndIndex]);
+});
+
+/*---------------------*/
 /* CANAL+ A LA DEMANDE */
 /*---------------------*/
-
 
 /* La sélection (l'accueil) */
 app.post('/GNCPF/vod/cplusod/ctx/json/g5r7t/cplusod/xtc/ws/content/cplusald_selection', function(req, res){
@@ -708,7 +740,7 @@ app.post('/GNCPF/vod/cplusod/ctx/json/g5r7t/csatod/xtc/ws/content/csatald_chaine
 });
 
 
+app.use(express.static(staticDir));
 
-app.use(express.static('/var/www/html/public'));
-
-app.listen(80);
+console.log("Listen incoming requests on port %s", port);
+app.listen(port);
