@@ -19,32 +19,24 @@ else
   echo '- npm is already installed, skip this step'
 fi
 
-echo '- Install node dependencies'
-npm install
-
-echo '- Install bind9'
-sudo apt-get install -y bind9
-
-echo '- Stop ntpd'
-if [ -f /etc/init.d/ntpd ]
+dpkg -l bind9 > /dev/null
+res=`echo $?`
+if [ "$res" == "1" ]
 then
-  echo '- Stop ntpd'
-  sudo service ntpd stop
+  echo '- Install bind9'
+  sudo apt-get install -y bind9
 else
-  echo '- ntpd is not started'
+  echo '- bind9 is already installed, skip this step'
 fi
 
-echo '- install bind9 configuration files'
-# Templates creation
-sudo node ip.js
-#sudo cp bind/named.conf.local /etc/bind
-sudo service bind9 reload
+echo '- Install node dependencies'
+npm install
 
 echo '- Install forever'
 sudo npm install forever -g
 
 # Start ntp server
 echo '- Start ntp.js forever !'
-sudo forever start ntp.js -l /var/log/ntpjs.log --colors
+sudo forever start ntp.js --colors
 
 echo 'Done.'

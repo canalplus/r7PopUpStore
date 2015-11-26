@@ -4,7 +4,7 @@ echo '##### r7PopUpStore Update Script ##'
 
 # Checkout all the files
 echo 'Dismissing local changes...'
-git checkout *
+git checkout -- *
 
 # Checkout master branch
 echo 'Checking out master branch...'
