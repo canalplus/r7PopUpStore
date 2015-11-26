@@ -9,7 +9,4 @@
 # Change current directory
 cd /home/photobox/r7PopUpStore
 
-# Update app
-sh update.sh
-
-sudo sh install.sh
+sudo node index.js

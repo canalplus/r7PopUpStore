@@ -20,10 +20,10 @@ else
 fi
 
 echo '- Install node dependencies'
-#npm install
+npm install
 
 echo '- Install bind9'
-#sudo apt-get install -y bind9
+sudo apt-get install -y bind9
 
 echo '- Stop ntpd'
 if [ -f /etc/init.d/ntpd ]
@@ -36,14 +36,15 @@ fi
 
 echo '- install bind9 configuration files'
 # Templates creation
-#sudo node ip.js
+sudo node ip.js
 #sudo cp bind/named.conf.local /etc/bind
+sudo service bind9 reload
 
 echo '- Install forever'
-#sudo npm install forever -g
+sudo npm install forever -g
 
 # Start ntp server
 echo '- Start ntp.js forever !'
-#sudo forever start ntp.js -l /var/log/ntpjs.log --colors
+sudo forever start ntp.js -l /var/log/ntpjs.log --colors
 
 echo 'Done.'
