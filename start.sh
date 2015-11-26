@@ -10,6 +10,7 @@
 # Change current directory
 cd /home/photobox/r7PopUpStore
 
+./update.sh
 
 echo '- Stop ntpd'
 if [ -f /etc/init.d/ntpd ]
