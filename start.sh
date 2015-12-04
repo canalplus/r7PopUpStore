@@ -27,11 +27,26 @@ sudo node ip.js
 sudo cp bind/named.conf.local /etc/bind
 sudo service bind9 reload
 
+# Start ntp server
+echo '- Start ntp.js forever !'
+sudo forever start ntp.js --colors
+
 # Send local IP addr in Firebase
-firebase_name='<ENTER_FIREBASE_NAME_HERE>'
+firebase_name=`cat firebase.txt`
 hostname=`uname -n|sed 's/[\.]/-/'g`
-ip_addr=`ifconfig|grep inet|grep -v inet6|grep -v '127.0.0.1'|awk '{print $2}'`
-curl -X PUT -d '{"hostname":"'$hostname'","ipNuc":"'$ip_addr'"}' 'https://'$firebase_name'.firebaseio.com/'$hostname'.json'
+ip_addr=`ifconfig|grep inet|grep -v inet6|grep -v '127.0.0.1'|sed 's/^.*inet.*:\([0-9]*\.[0-9]*\.[0-9]*\.[0-9]*\)[ ]*Bcast:.*$/\1/'`
+
+curl -X GET 'https://fiery-fire-9464.firebaseio.com/settings/locations.json'|grep 'photobox-test-002'
+res=`echo $?`
+
+if [ "$res" == "1" ]
+then
+  verb=PUT
+else
+  verb=PATCH
+fi
+
+curl -X $verb -d '{"hostname":"'$hostname'","ipNuc":"'$ip_addr'"}' 'https://'$firebase_name'.firebaseio.com/'$hostname'.json'
 
 # Start express server
 sudo node index.js

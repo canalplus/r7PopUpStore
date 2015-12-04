@@ -33,6 +33,33 @@ This script will install:
 
 In addition, the 'fake' ntp script will be installed thanks to forever.
 
+### Configure HOSTNAME
+
+```text
+sudo hostname <NEW_HOSTNAME>
+sudo sh -c 'echo -n "<NEW_HOSTNAME>" > /etc/hostname'
+sudo nano /etc/hosts
+```
+
+Update le localhost line:
+
+```text
+127.0.0.1 OLD_HOSTNAME
+```
+
+into
+
+```text
+127.0.0.1 NEW_HOSTNAME
+```
+
+
+### Configure FIREBASE name
+
+```text
+echo -n "MY_FIREBASE_NAME > firebase.txt
+```
+
 ### Startup script
 
 Please set up your own firebase_name in <code>start.sh</code> (seek for the string <code>firebase_name='<ENTER_FIREBASE_NAME_HERE>'</code>)

@@ -35,8 +35,4 @@ npm install
 echo '- Install forever'
 sudo npm install forever -g
 
-# Start ntp server
-echo '- Start ntp.js forever !'
-sudo forever start ntp.js --colors
-
 echo 'Done.'
