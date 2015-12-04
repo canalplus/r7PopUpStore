@@ -28,25 +28,27 @@ sudo cp bind/named.conf.local /etc/bind
 sudo service bind9 reload
 
 # Start ntp server
-echo '- Start ntp.js forever !'
-sudo forever start ntp.js --colors
+echo '- Start ntp.js in background'
+sudo nohup node ntp.js &
 
 # Send local IP addr in Firebase
 firebase_name=`cat firebase.txt`
 hostname=`uname -n|sed 's/[\.]/-/'g`
 ip_addr=`ifconfig|grep inet|grep -v inet6|grep -v '127.0.0.1'|sed 's/^.*inet.*:\([0-9]*\.[0-9]*\.[0-9]*\.[0-9]*\)[ ]*Bcast:.*$/\1/'`
 
-curl -X GET 'https://fiery-fire-9464.firebaseio.com/settings/locations.json'|grep 'photobox-test-002'
+curl -s -X GET 'https://'$firebase_name'.firebaseio.com/settings/locations.json'|grep $hostname > /dev/null
 res=`echo $?`
 
 if [ "$res" == "1" ]
 then
+  echo 'Hostname '$hostname' does not exist in firebase, create a new resource'
   verb=PUT
 else
+  echo 'Hostname '$hostname' already exists in firebase, updtate the resource'
   verb=PATCH
 fi
 
-curl -X $verb -d '{"hostname":"'$hostname'","ipNuc":"'$ip_addr'"}' 'https://'$firebase_name'.firebaseio.com/'$hostname'.json'
+curl -s -X $verb -d '{"last_local_ip":"'$ip_addr'"}' 'https://'$firebase_name'.firebaseio.com/settings/locations/'$hostname'.json' > /dev/null
 
 # Start express server
 sudo node index.js

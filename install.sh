@@ -32,7 +32,4 @@ fi
 echo '- Install node dependencies'
 npm install
 
-echo '- Install forever'
-sudo npm install forever -g
-
 echo 'Done.'
