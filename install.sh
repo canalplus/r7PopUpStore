@@ -8,26 +8,11 @@ echo ''
 
 echo 'Start install'
 
-dpkg -l npm > /dev/null
-res=`echo $?`
-if [ "$res" == "1" ]
-then
-  echo '- Install npm'
-    curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
-    sudo apt-get install -y nodejs
-else
-  echo '- npm is already installed, skip this step'
-fi
-
-dpkg -l bind9 > /dev/null
-res=`echo $?`
-if [ "$res" == "1" ]
-then
-  echo '- Install bind9'
-  sudo apt-get install -y bind9
-else
-  echo '- bind9 is already installed, skip this step'
-fi
+echo '- Install npm'
+curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
+sudo apt-get install -y nodejs
+echo '- Install bind9'
+sudo apt-get install -y bind9
 
 echo '- Install node dependencies'
 npm install
